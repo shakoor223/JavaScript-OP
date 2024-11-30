@@ -115,3 +115,24 @@ console.log(ahsan);
 
 ahsan.calcAge();
 
+// Every obj in JavaScript can have setter and getter property
+const account = {
+    owner: 'Shakir',
+    movments: [200,400,570,650],
+
+
+get latest(){
+    return this.movments.slice(-1).pop();
+},
+ set latest (mov){
+    this.movments.push(mov)
+ },
+
+}
+console.log(account.latest);
+
+
+account.latest = 50;
+console.log(account.movments);
+
+
