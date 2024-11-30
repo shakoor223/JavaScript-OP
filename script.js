@@ -90,6 +90,13 @@ bmw.brake();
 bmw.brake();
 
 
+
+// Classes are not Hoisted
+// Classes are first class citizens
+// [means we can pass them in functions and also return them from functions]
+// Classes are executed in strict mode 
+
+
 class personCL {
     constructor(firstName, birthYear) {
         this.firstName = firstName;
