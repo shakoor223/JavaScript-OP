@@ -184,6 +184,8 @@ const Student = function(firstName, birthYear, course){
     this.course = course;
 };
 
+
+// linking
 Student.prototype = Object.create(Person1.prototype)
 // with this the student dot prototype object is now an object that inherits from person dot prototype 
 // We have to create this connection here before we add any more methods to the prototype object of student, And that's because object dot create  will return an empty object And so at this point student dot prototype is empty And so then onto that empty object we can add methods like this one
@@ -200,6 +202,99 @@ mike.calcAge();
 
 console.log(mike.__proto__);
 console.log(mike.__proto__.__proto__);
+/////////////////////////////////
+const car= function (make, speed){
+    this.make= make;
+    this.speed = speed;
+    // console.log(this);
+    }
+    
+    
+    //implementing an accelerate method
+    car.prototype.accelerate = function () {
+        // console.log(this.speed += 10);bmw.brake();bmw.brake();
+        this.speed += 10;
+        console.log(`${this.make}is going at ${this.speed}`);
+        
+    }
+    
+    
+    // implementing an brake method
+    car.prototype.brake = function () {
+        this.speed -= 5;
+        console.log(`${this.make} is going at ${this.speed}`);
+        
+    }
+    const bmw1= new cars ('BMW', 120)
+    const mercedes1 = new cars ('Mercedes', 95)
+    
 
 
+const EV = function(make,speed,batteryCharge){
+    car.call(this, make,speed)
+    this.batteryCharge = batteryCharge;
+}
 
+// Link the prototypes
+EV.prototype = Object.create(car.prototype);
+
+
+EV.prototype.chargeBattery = function (chargeTo){
+    this.charge = chargeTo;
+};
+
+EV.prototype.accelerate = function(){
+    this.speed +=20;
+    this.charge--;
+    console.log(`${this.make} is going at ${this.speed} with a charge of ${this.charge}`);
+}
+
+const tesla  = new EV('Tesla', 120, 23);
+tesla.chargeBattery(90);
+console.log(tesla);
+tesla.brake();
+tesla.accelerate();
+
+///////////////////////////////
+
+class StudentCl extends personCL {
+    constructor (fullName, birthYear, course){
+
+        // Always needs to happen first!
+        // and that's becoz this call to the super function is respionsible for creating the this keyword in thsi subclass. And so therefore without doing this we wouldn't be able to access the this keyword to do this
+        super (fullName, birthYear)
+        this.course = course;
+    }
+
+    introduce(){
+        console.log(`my name is ${this.firstName} and i study ${this.course}`);
+        
+    }
+}
+const martha = new StudentCl('marth', 2014, 'computer Science')
+martha.introduce();
+martha.calcAge();
+
+//////////////////
+// object.create
+const PersonProto1 = {
+    calcAge() {
+        console.log(2024 - this.birthYear);  
+    },
+    
+    
+    ///////////////
+    init(firstName,birthYear) {
+        this.firstName = firstName;
+        this.birthYear = birthYear;
+     }
+    };
+    const sahil1 = Object.create(PersonProto1);
+    const studentProto = Object.create(PersonProto1)
+    studentProto.init = function (firstName, birthYear, course) {
+        // because we want to set the this keywords to the this keyword in this method here
+        PersonProto1.init.call(this, firstName,birthYear);
+        this.course = course
+    }
+    const jay = Object.create(studentProto1);
+    jay.init('jay',2010, 'computerscience')
