@@ -135,4 +135,71 @@ console.log(account.latest);
 account.latest = 50;
 console.log(account.movments);
 
+/////////////////////////////
+/////////////////////////////
+// Using Object.Create
+
+const PersonProto = {
+calcAge() {
+    console.log(2024 - this.birthYear);  
+},
+
+
+///////////////
+init(firstName,birthYear) {
+    this.firstName = firstName;
+    this.birthYear = birthYear;
+ }
+};
+const sahil = Object.create(PersonProto);
+console.log(sahil);
+sahil.name = 'sahil';
+sahil.birthYear = 2008;
+sahil.calcAge();
+
+console.log(sahil.__proto__ === PersonProto);
+
+const ram = Object.create(PersonProto);
+ram.init('sahil', 1955);
+ram.calcAge();
+////////////////////////////
+// INheritance between 'Classes' Constructor Function
+
+const Person1 = function (firstName, birthYear) {
+    this.firstName = firstName;
+    this.birthYear = birthYear;
+    
+};
+
+Person1.prototype.calcAge = function (){
+    console.log(2024 - this.birthYear);
+    
+};
+
+const Student = function(firstName, birthYear, course){
+    // this.firstName = firstName;
+    // this.birthYear = birthYear;
+    // So the call Method will indeed call this function but we will able to specify the this keyword here as the first argument in this function
+    Person.call(this, firstName,birthYear)
+    this.course = course;
+};
+
+Student.prototype = Object.create(Person1.prototype)
+// with this the student dot prototype object is now an object that inherits from person dot prototype 
+// We have to create this connection here before we add any more methods to the prototype object of student, And that's because object dot create  will return an empty object And so at this point student dot prototype is empty And so then onto that empty object we can add methods like this one
+
+Student.prototype.introduce = function (){
+    console.log(`My name is ${this.firstName} and i study ${this.course}`);
+    
+};
+
+const mike = new Student ('mike', 2027, 'computerScience');
+console.log(mike);
+mike.introduce();
+mike.calcAge();
+
+console.log(mike.__proto__);
+console.log(mike.__proto__.__proto__);
+
+
 
