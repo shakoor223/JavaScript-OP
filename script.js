@@ -256,7 +256,8 @@ tesla.brake();
 tesla.accelerate();
 
 ///////////////////////////////
-
+// Using classes
+// This code defines a class StudentCl that extends another class personCL. The StudentCl class is a subclass of personCL, which means it inherits properties and methods from personCL.
 class StudentCl extends personCL {
     constructor (fullName, birthYear, course){
 
@@ -276,25 +277,27 @@ martha.introduce();
 martha.calcAge();
 
 //////////////////
-// object.create
+// Inheritance Between "classes: object.create"
 const PersonProto1 = {
-    calcAge() {
-        console.log(2024 - this.birthYear);  
-    },
+calcAge(){
+    console.log(2024 - birthYear);
     
-    
-    ///////////////
-    init(firstName,birthYear) {
-        this.firstName = firstName;
-        this.birthYear = birthYear;
-     }
-    };
-    const sahil1 = Object.create(PersonProto1);
-    const studentProto = Object.create(PersonProto1)
-    studentProto.init = function (firstName, birthYear, course) {
-        // because we want to set the this keywords to the this keyword in this method here
-        PersonProto1.init.call(this, firstName,birthYear);
-        this.course = course
-    }
-    const jay = Object.create(studentProto1);
-    jay.init('jay',2010, 'computerscience')
+},
+init(firstName, birthYear){
+    this.firstName= firstName;
+    this.birthYear= birthYear;
+}
+};
+
+const steven = Object.create(PersonProto);
+
+const StudentProto = Object.create(PersonProto1);
+// so basically the child prototype can resuse this init method from the person prototype which is the parent prototype
+StudentProto.init = function (firstName,birthYear,course) {
+PersonProto.init.call(this, firstName,birthYear);
+this.course = course;
+}
+
+const jay = Object.create(StudentProto)
+
+jay.init('jay',2004,'computer')
